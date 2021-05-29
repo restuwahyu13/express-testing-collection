@@ -4,7 +4,7 @@ This repository is testing collection using nodejs and express framework, you ca
 
 ### Author
 
-- #### [Restu Wahyu Saputra]
+- #### Restu Wahyu Saputra
   + **[Github](https://github.com/restuwahyu13)**
   + **[Instagram](https://www.instagram.com/restuvh705)**
   + **[Facebook](https://www.facebook.com/restuvanhalen)**
