@@ -57,11 +57,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('add new product conflict', async (done) => {
-		req.body.name = 'pepsodent'
-		req.body.quantity = 10
-		req.body.price = 5000
-		req.body.category = 'odol'
-
 		productModel.findOne.mockReturnValue(productCreate)
 		await addProduct(req, res, next)
 
@@ -117,8 +112,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('result product', async (done) => {
-		req.params.id = 3
-
 		productModel.findOne.mockReturnValue(productResult)
 		await resultProductById(req, res, next)
 
@@ -138,8 +131,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('result product failed', async (done) => {
-		req.params.id = 1
-
 		productModel.findOne.mockReturnValue(null)
 		await resultProductById(req, res, next)
 
@@ -158,8 +149,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('delete product', async (done) => {
-		req.params.id = 1
-
 		productModel.findByIdAndDelete.mockReturnValue(true)
 		await deleteProductById(req, res, next)
 
@@ -178,8 +167,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('delete product failed', async (done) => {
-		req.params.id = 1
-
 		productModel.findByIdAndDelete.mockReturnValue(false)
 		await deleteProductById(req, res, next)
 
@@ -198,8 +185,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('update product', async (done) => {
-		req.params.id = 1
-
 		productModel.findByIdAndUpdate.mockReturnValue(true)
 		await updateProduct(req, res, next)
 
@@ -218,8 +203,6 @@ describe('[Unit Testing] - Product Controller', () => {
 	})
 
 	it('update product failed', async (done) => {
-		req.params.id = 1
-
 		productModel.findByIdAndUpdate.mockReturnValue(false)
 		await updateProduct(req, res, next)
 
