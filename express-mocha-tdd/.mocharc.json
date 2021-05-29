@@ -1,0 +1,8 @@
+{
+	"spec": "__tests__/**/*.spec.js",
+	"full-trace": true,
+	"recursive": true,
+	"exit": true,
+	"timeout": 0,
+	"exclude": ["node_modules"]
+}
