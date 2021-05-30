@@ -10,7 +10,7 @@ let data, id
 // setup middleware chai
 chai.use(chaiHttp)
 
-describe('[Integration Testing] - Product Controller', () => {
+describe('[Integration Testing] - Product Controller', function () {
 	before(function () {
 		data = {
 			name: faker.commerce.productName(),
@@ -30,7 +30,7 @@ describe('[Integration Testing] - Product Controller', () => {
 	it('add new product', async function () {
 		const res = await chai.request(app).post('/api/v1/product').set({ 'Content-Type': 'application/json' }).send(data)
 
-		chai.expect(res.statusCode).to.be.equal(201)
+		chai.expect(res.status).to.be.equal(201)
 		chai.expect(res.get('Content-Type')).to.be.match(/json/)
 		chai.expect(res.body.message).to.be.equal('add new product successfully')
 	})
@@ -38,7 +38,7 @@ describe('[Integration Testing] - Product Controller', () => {
 	it('results product', async function () {
 		const res = await chai.request(app).get('/api/v1/products').set({ 'Content-Type': 'application/json' })
 
-		chai.expect(res.statusCode).to.be.equal(200)
+		chai.expect(res.status).to.be.equal(200)
 		chai.expect(res.get('Content-Type')).to.be.match(/json/)
 		chai.expect(res.body.message).to.be.equal('products already to use')
 		chai.expect(isType(res.body.products)).to.be.equal('array')
@@ -51,7 +51,7 @@ describe('[Integration Testing] - Product Controller', () => {
 			.get('/api/v1/product/' + id)
 			.set({ 'Content-Type': 'application/json' })
 
-		chai.expect(res.statusCode).to.be.equal(200)
+		chai.expect(res.status).to.be.equal(200)
 		chai.expect(res.get('Content-Type')).to.be.match(/json/)
 		chai.expect(res.body.message).to.be.equal('product already to use')
 		chai.expect(isType(res.body.product)).to.be.equal('object')
@@ -64,7 +64,7 @@ describe('[Integration Testing] - Product Controller', () => {
 			.set({ 'Content-Type': 'application/json' })
 			.send(data)
 
-		chai.expect(res.statusCode).to.be.equal(200)
+		chai.expect(res.status).to.be.equal(200)
 		chai.expect(res.get('Content-Type')).to.be.match(/json/)
 		chai.expect(res.body.message).to.be.equal('update product successfully')
 	})
@@ -75,7 +75,7 @@ describe('[Integration Testing] - Product Controller', () => {
 			.delete('/api/v1/product/' + id)
 			.set({ 'Content-Type': 'application/json' })
 
-		chai.expect(res.statusCode).to.be.equal(200)
+		chai.expect(res.status).to.be.equal(200)
 		chai.expect(res.get('Content-Type')).to.be.match(/json/)
 		chai.expect(res.body.message).to.be.equal('delete product successfully')
 	})

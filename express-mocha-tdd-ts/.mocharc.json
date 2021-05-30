@@ -1,0 +1,9 @@
+{
+	"spec": "src/__tests__/**/*.spec.ts",
+	"require": "ts-node/register",
+	"full-trace": true,
+	"recursive": true,
+	"exit": true,
+	"timeout": 0,
+	"exclude": ["node_modules", "dist"]
+}

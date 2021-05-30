@@ -50,6 +50,7 @@
 		"@types/morgan": "^1.9.2",
 		"@types/node": "^15.6.1",
 		"@types/q": "^1.5.4",
+		"@types/rimraf": "^3.0.0",
 		"@types/supertest": "^2.0.11",
 		"cross-env": "^7.0.3",
 		"dotenv": "^9.0.2",
