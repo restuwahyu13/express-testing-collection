@@ -1,8 +1,8 @@
-const request = require('supertest')
-const faker = require('faker')
-const { isType } = require('is-any-type')
-const app = require('../../app')
-const { productModel } = require('../../models/model.product')
+import request from 'supertest'
+import faker from 'faker'
+import { isType } from 'is-any-type'
+import app from '../../app'
+import productModel from '../../models/model.product'
 
 let data, id
 

@@ -1,11 +1,12 @@
-const httpMock = require('node-mocks-http')
-const { productCreate, productResults, productResult } = require('../mock-data/fakeData')
-const { productModel } = require('../../models/model.product')
-const { addProduct } = require('../../controllers/addProduct')
-const { resultsProduct } = require('../../controllers/resultsProduct')
-const { resultProductById } = require('../../controllers/resultProductById')
-const { deleteProductById } = require('../../controllers/deleteProduct')
-const { updateProduct } = require('../../controllers/updateProduct')
+import httpMock from 'node-mocks-http'
+import { productCreate, productResults, productResult } from '../mock-data/fakeData'
+import productModel from '../../models/model.product'
+import { addProduct } from '../../controllers/addProduct'
+import { resultsProduct } from '../../controllers/resultsProduct'
+import { resultProductById } from '../../controllers/resultProductById'
+import { deleteProductById } from '../../controllers/deleteProduct'
+import { updateProduct } from '../../controllers/updateProduct'
+import { ProductDTO } from '../../dto/dto.product'
 
 let req, res, next
 
@@ -21,7 +22,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('add new product', async function (done) {
-		productModel.create.mockReturnValue(productCreate)
+		const jestMock = productModel.create as jest.Mock<any, any>
+		jestMock.mockReturnValue(productCreate)
+
 		await addProduct(req, res, next)
 
 		const data = res._getJSONData()
@@ -39,7 +42,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('add new product failed', async function (done) {
-		productModel.create.mockReturnValue(null)
+		const jestMock = productModel.create as jest.Mock<any, any>
+		jestMock.mockReturnValue(null)
+
 		await addProduct(req, res, next)
 
 		const data = res._getJSONData()
@@ -57,7 +62,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('add new product conflict', async function (done) {
-		productModel.findOne.mockReturnValue(productCreate)
+		const jestMock = productModel.findOne as jest.Mock<any, any>
+		jestMock.mockReturnValue(productCreate)
+
 		await addProduct(req, res, next)
 
 		const data = res._getJSONData()
@@ -75,7 +82,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('results product', async function (done) {
-		productModel.find.mockReturnValue(productResults)
+		const jestMock = productModel.find as jest.Mock<any, any>
+		jestMock.mockReturnValue(productResults)
+
 		await resultsProduct(req, res, next)
 
 		const data = res._getJSONData()
@@ -94,7 +103,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('results products failed', async function (done) {
-		productModel.find.mockReturnValue([])
+		const jestMock = productModel.find as jest.Mock<any, any>
+		jestMock.mockReturnValue([])
+
 		await resultsProduct(req, res, next)
 
 		const data = res._getJSONData()
@@ -112,7 +123,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('result product', async function (done) {
-		productModel.findOne.mockReturnValue(productResult)
+		const jestMock = productModel.findOne as jest.Mock<any, any>
+		jestMock.mockReturnValue(productResult)
+
 		await resultProductById(req, res, next)
 
 		const data = res._getJSONData()
@@ -131,7 +144,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('result product failed', async function (done) {
-		productModel.findOne.mockReturnValue(undefined)
+		const jestMock = productModel.findOne as jest.Mock<any, any>
+		jestMock.mockReturnValue(undefined)
+
 		await resultProductById(req, res, next)
 
 		const data = res._getJSONData()
@@ -149,7 +164,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('delete product', async function (done) {
-		productModel.findByIdAndDelete.mockReturnValue(true)
+		const jestMock = productModel.findByIdAndDelete as jest.Mock<any, any>
+		jestMock.mockReturnValue(true)
+
 		await deleteProductById(req, res, next)
 
 		const data = res._getJSONData()
@@ -167,7 +184,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('delete product failed', async function (done) {
-		productModel.findByIdAndDelete.mockReturnValue(false)
+		const jestMock = productModel.findByIdAndDelete as jest.Mock<any, any>
+		jestMock.mockReturnValue(false)
+
 		await deleteProductById(req, res, next)
 
 		const data = res._getJSONData()
@@ -185,7 +204,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('update product', async function (done) {
-		productModel.findByIdAndUpdate.mockReturnValue(true)
+		const jestMock = productModel.findByIdAndUpdate as jest.Mock<any, any>
+		jestMock.mockReturnValue(true)
+
 		await updateProduct(req, res, next)
 
 		const data = res._getJSONData()
@@ -203,7 +224,9 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('update product failed', async function (done) {
-		productModel.findByIdAndUpdate.mockReturnValue(false)
+		const jestMock = productModel.findByIdAndUpdate as jest.Mock<any, any>
+		jestMock.mockReturnValue(false)
+
 		await updateProduct(req, res, next)
 
 		const data = res._getJSONData()
