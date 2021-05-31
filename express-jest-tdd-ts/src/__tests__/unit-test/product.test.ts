@@ -31,9 +31,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'create')
 
+		expect(jest.isMockFunction(productModel.create)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.create(productCreate))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(productCreate)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(201)
@@ -43,15 +45,17 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('add new product failed', async function (done) {
-		mock.create.mockReturnValue(null)
+		mock.create.mockReturnValue(undefined)
 		await addProduct(req, res, next)
 
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'create')
 
+		expect(jest.isMockFunction(productModel.create)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
-		expect(mockSpy).toHaveBeenCalledWith(productModel.create(null))
+		expect(mockSpy).toHaveBeenCalledWith(productModel.create(undefined))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(undefined)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(403)
@@ -67,9 +71,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findOne')
 
+		expect(jest.isMockFunction(productModel.findOne)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findOne(productCreate))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(productCreate)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(409)
@@ -85,9 +91,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'find')
 
+		expect(jest.isMockFunction(productModel.find)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.find(productResults))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(productResults)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(200)
@@ -104,9 +112,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'find')
 
+		expect(jest.isMockFunction(productModel.find)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.find([]))
+		expect(mockSpy.mock.results[0].value).toStrictEqual([])
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(404)
@@ -122,9 +132,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findOne')
 
+		expect(jest.isMockFunction(productModel.findOne)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findOne(productResult))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(productResult)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(200)
@@ -141,9 +153,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findOne')
 
+		expect(jest.isMockFunction(productModel.findOne)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findOne(undefined))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(undefined)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(404)
@@ -159,9 +173,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findByIdAndDelete')
 
+		expect(jest.isMockFunction(productModel.findByIdAndDelete)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findByIdAndDelete(true))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(true)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(200)
@@ -177,9 +193,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findByIdAndDelete')
 
+		expect(jest.isMockFunction(productModel.findByIdAndDelete)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findByIdAndDelete(false))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(false)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(404)
@@ -195,9 +213,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findByIdAndUpdate')
 
+		expect(jest.isMockFunction(productModel.findByIdAndDelete)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findByIdAndUpdate(true))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(true)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(200)
@@ -213,9 +233,11 @@ describe('[Unit Testing] - Product Controller', function () {
 		const data = res._getJSONData()
 		const mockSpy = jest.spyOn(productModel, 'findByIdAndUpdate')
 
+		expect(jest.isMockFunction(productModel.findByIdAndUpdate)).toBeTruthy()
 		expect(mockSpy).toHaveBeenCalled()
 		expect(mockSpy).toHaveBeenCalledTimes(1)
 		expect(mockSpy).toHaveBeenCalledWith(productModel.findByIdAndUpdate(false))
+		expect(mockSpy.mock.results[0].value).toStrictEqual(false)
 
 		expect(res._isEndCalled()).toBeTruthy()
 		expect(res._getStatusCode()).toBe(404)
