@@ -9,8 +9,8 @@
 		"build": "npm run cleanup && npm run compiler",
 		"start": "node dist/server.js",
 		"dev": "tsnd --poll --respawn --quiet --watch src/**/*.{ts} --files -H -T server.ts",
-		"test": "cross-env NODE_ENV=test jest",
-		"test-watch": "cross-env NODE_ENV=test jest --watchAll"
+		"test": "cross-env NODE_ENV=test jest --forceExit",
+		"test-watch": "cross-env NODE_ENV=test jest --watchAll --forceExit"
 	},
 	"repository": {
 		"type": "git",
