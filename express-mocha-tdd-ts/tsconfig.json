@@ -14,10 +14,10 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"sourceMap": true,
+		"isolatedModules": true,
 		"removeComments": true,
 		"noImplicitAny": false,
-		"noEmit": false,
-		"isolatedModules": false
+		"noEmit": false
 	},
 	"include": ["src/**/*.ts", "server.ts"],
 	"exclude": ["src/__tests__/**/*", "node_modules", "dist"]

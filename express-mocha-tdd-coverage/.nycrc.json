@@ -1,0 +1,6 @@
+{
+	"include": ["__tests__/**/**.spec.js"],
+	"exclude": ["node_modules", ".nyc_output", "coverage"],
+	"check-coverage": true,
+	"reporter": ["text", "html"]
+}
