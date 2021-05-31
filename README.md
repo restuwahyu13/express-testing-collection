@@ -1,6 +1,6 @@
 ## Nodejs Testing Collection
 
-This repository is testing collection using nodejs and express framework, you can learn anything about basic testing using jest and mocha with coverage.
+This repository is testing collection using nodejs and express framework, you can learn anything about basic testing using jest and mocha.
 
 ### Author
 
