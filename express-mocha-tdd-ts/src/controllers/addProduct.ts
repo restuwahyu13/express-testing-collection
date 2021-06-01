@@ -4,7 +4,7 @@ import productModel from '../models/model.product'
 
 export const addProduct = async (req: Request, res: Response, next: NextFunction): Promise<Response<any>> => {
 	try {
-		const checkProductExist = await productModel.findOne({ name: req.body.name })
+		const checkProductExist = await productModel.findOne({ name: req.body.name }).lean()
 
 		if (checkProductExist) {
 			return res.status(StatusCodes.CONFLICT).json({

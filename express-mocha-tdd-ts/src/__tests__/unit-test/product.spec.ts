@@ -14,7 +14,7 @@ let req, res, next, mock
 describe('[Unit Testing] - Product Controller', function () {
 	beforeEach(function () {
 		// create model mock
-		mock = sinon.mock(productModel) as sinon.SinonMock
+		mock = sinon.mock(productModel)
 
 		// create express request and response mock
 		req = httpMock.createRequest()
@@ -23,18 +23,18 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	afterEach(function () {
-		// reset mock after each test finish
+		// reset mock after every each test finish
 		mock.verify()
 		mock.restore()
 	})
 
 	it('add new product', async function () {
-		mock.expects('findOne')
 		mock.expects('create').resolves(productCreate)
 
 		await addProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.create[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(201)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -42,12 +42,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('add new product failed', async function () {
-		mock.expects('findOne')
 		mock.expects('create').resolves(null)
 
 		await addProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.create[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(403)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -55,11 +55,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('add new product conflict', async function () {
-		mock.expects('findOne').resolves(productCreate)
+		mock.expects('findOne').returns({ lean: sinon.stub().resolves(productCreate) })
 
 		await addProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findOne[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(409)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -67,11 +68,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('results product', async function () {
-		mock.expects('find').resolves(productResults)
+		mock.expects('find').returns({ lean: sinon.stub().resolves(productResults) })
 
 		await resultsProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.find[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(200)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -80,11 +82,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('results products failed', async function () {
-		mock.expects('find').resolves([])
+		mock.expects('find').returns({ lean: sinon.stub().resolves([]) })
 
 		await resultsProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.find[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(404)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -92,11 +95,11 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('result product', async function () {
-		mock.expects('findOne').resolves(productResult)
-
+		mock.expects('findOne').returns({ lean: sinon.stub().resolves(productResult) })
 		await resultProductById(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findOne[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(200)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -105,11 +108,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('result product failed', async function () {
-		mock.expects('findOne').resolves(null)
+		mock.expects('findOne').returns({ lean: sinon.stub().resolves(undefined) })
 
 		await resultProductById(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findOne[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(404)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -117,11 +121,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('delete product', async function () {
-		mock.expects('findByIdAndDelete').resolves(true)
+		mock.expects('findByIdAndDelete').returns({ lean: sinon.stub().resolves(true) })
 
 		await deleteProductById(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findByIdAndDelete[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(200)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -129,11 +134,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('delete product failed', async function () {
-		mock.expects('findByIdAndDelete').resolves(false)
+		mock.expects('findByIdAndDelete').returns({ lean: sinon.stub().resolves(false) })
 
 		await deleteProductById(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findByIdAndDelete[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(404)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -141,11 +147,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('update product', async function () {
-		mock.expects('findByIdAndUpdate').resolves(true)
+		mock.expects('findByIdAndUpdate').returns({ lean: sinon.stub().resolves(true) })
 
 		await updateProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findByIdAndUpdate[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(200)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })
@@ -153,11 +160,12 @@ describe('[Unit Testing] - Product Controller', function () {
 	})
 
 	it('update product failed', async function () {
-		mock.expects('findByIdAndUpdate').resolves(false)
+		mock.expects('findByIdAndUpdate').returns({ lean: sinon.stub().resolves(false) })
 
 		await updateProduct(req, res, next)
 		const data = res._getJSONData()
 
+		chai.expect(mock.expectations.findByIdAndUpdate[0]).to.be.instanceOf(Function)
 		chai.expect(res._isEndCalled()).to.be.true
 		chai.expect(res._getStatusCode()).to.be.equal(404)
 		chai.expect(res._getHeaders()).to.be.contain({ 'content-type': 'application/json' })

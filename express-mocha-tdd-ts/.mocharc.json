@@ -4,6 +4,8 @@
 	"full-trace": true,
 	"recursive": true,
 	"exit": true,
+	"slow": 150,
 	"timeout": 0,
+	"delay": false,
 	"exclude": ["node_modules", "dist"]
 }

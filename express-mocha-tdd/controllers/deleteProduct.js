@@ -3,7 +3,7 @@ const { productModel } = require('../models/model.product')
 
 exports.deleteProductById = async (req, res, next) => {
 	try {
-		const deleteProduct = await productModel.findByIdAndDelete(req.params.id)
+		const deleteProduct = await productModel.findByIdAndDelete(req.params.id).lean()
 
 		if (!deleteProduct) {
 			return res.status(StatusCodes.NOT_FOUND).json({

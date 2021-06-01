@@ -3,13 +3,15 @@ const { productModel } = require('../models/model.product')
 
 exports.updateProduct = async (req, res, next) => {
 	try {
-		const updateProduct = await productModel.findByIdAndUpdate(req.params.id, {
-			name: req.body.name,
-			quantity: req.body.quantity,
-			price: req.body.price,
-			category: req.body.category,
-			updatedAt: new Date()
-		})
+		const updateProduct = await productModel
+			.findByIdAndUpdate(req.params.id, {
+				name: req.body.name,
+				quantity: req.body.quantity,
+				price: req.body.price,
+				category: req.body.category,
+				updatedAt: new Date()
+			})
+			.lean()
 
 		if (!updateProduct) {
 			return res.status(StatusCodes.NOT_FOUND).json({

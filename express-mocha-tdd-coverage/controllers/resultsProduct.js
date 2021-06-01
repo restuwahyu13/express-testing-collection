@@ -3,7 +3,7 @@ const { productModel } = require('../models/model.product')
 
 exports.resultsProduct = async (req, res, next) => {
 	try {
-		const checkProductExists = await productModel.find({})
+		const checkProductExists = await productModel.find({}).lean()
 
 		if (checkProductExists.length < 1) {
 			return res.status(StatusCodes.NOT_FOUND).json({

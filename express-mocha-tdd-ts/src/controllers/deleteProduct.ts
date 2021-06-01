@@ -4,7 +4,7 @@ import productModel from '../models/model.product'
 
 export const deleteProductById = async (req: Request, res: Response, next: NextFunction): Promise<Response<any>> => {
 	try {
-		const deleteProduct = await productModel.findByIdAndDelete(req.params.id)
+		const deleteProduct = await productModel.findByIdAndDelete(req.params.id).lean()
 
 		if (!deleteProduct) {
 			return res.status(StatusCodes.NOT_FOUND).json({

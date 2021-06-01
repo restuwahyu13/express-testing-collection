@@ -3,6 +3,8 @@
 	"full-trace": true,
 	"recursive": true,
 	"exit": true,
+	"slow": 150,
 	"timeout": 0,
-	"exclude": ["node_modules", ".nyc_output", "coverage"]
+	"delay": false,
+	"exclude": ["node_modules", "dist"]
 }

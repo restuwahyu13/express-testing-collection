@@ -3,7 +3,7 @@ const { productModel } = require('../models/model.product')
 
 exports.addProduct = async (req, res, next) => {
 	try {
-		const checkProductExist = await productModel.findOne({ name: req.body.name })
+		const checkProductExist = await productModel.findOne({ name: req.body.name }).lean()
 
 		if (checkProductExist) {
 			return res.status(StatusCodes.CONFLICT).json({
